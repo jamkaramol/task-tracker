@@ -1,0 +1,12 @@
+.swim-lane {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    margin: 0px 5px 0px 5px;
+    .lane-heading {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        text-transform: capitalize;
+    }
+}

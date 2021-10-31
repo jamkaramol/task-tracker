@@ -1,24 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import SwimLane from './components/SwimLane';
+import { SWIM_LANE_TYPES } from './app/constants';
 
 function App() {
+
+  const ALL_SWIM_LANES = [
+    {
+      label: SWIM_LANE_TYPES.WENT_WELL.split("_").join(" "),
+      type: SWIM_LANE_TYPES.WENT_WELL
+    },
+    {
+      label: SWIM_LANE_TYPES.TO_IMPROVE.split("_").join(" "),
+      type: SWIM_LANE_TYPES.TO_IMPROVE
+    },
+    {
+      label: SWIM_LANE_TYPES.ACTION_ITEMS.split("_").join(" "),
+      type: SWIM_LANE_TYPES.ACTION_ITEMS
+    }
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {ALL_SWIM_LANES.map(({ label, type }) => {
+        return <SwimLane key={type + label} label={label} type={type} />
+      })}
     </div>
   );
 }

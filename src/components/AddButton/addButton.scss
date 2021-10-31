@@ -1,0 +1,13 @@
+@import "../../styles/colors";
+
+.add-button {
+    background-color: $button-background;
+    text-align: center;
+    padding: 5px;
+    box-shadow: 0 0 10px #eee;
+    cursor: pointer;
+    margin-bottom: 5px;
+    &:hover {
+        background-color: $button-hover;
+    }
+}

@@ -1,0 +1,53 @@
+@import "../../styles/colors";
+
+.went-well-background {
+    background-color: $custom-green;
+}
+
+.to-improve-background {
+    background-color: $custom-red;
+}
+.action-items-background {
+    background-color: $custom-purple;
+}
+
+.action-common {
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+}
+
+.task-details {
+    color: white;
+    padding: 5px;
+    box-shadow: 0 0 1px #333;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    .details {
+        min-height: 50px;
+        cursor: pointer;
+        white-space: initial;
+    }
+    .action-items {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .action-comments {
+            @extend .action-common;
+            .comment-count {
+                font-size: 10px;
+                margin-left: 3px;
+            }
+        }
+        .action-like {
+            @extend .action-common;
+            .like-count {
+                font-size: 10px;
+            }
+        }
+        .action-delete {
+            font-size: 18px;
+        }
+    }
+}

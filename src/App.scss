@@ -1,0 +1,12 @@
+@import "./styles/colors";
+
+.container {
+  padding-left: 0;
+  display: flex;
+  justify-content: flex-start;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 5px 5px 0px 5px;
+  background-color: $app-background;
+}
