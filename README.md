@@ -3,12 +3,16 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
+# Latest update
+
+Add new lane and delete lane feature added
+
 ## How it looks ?
 
 
 | Home Page                       |
 |---------------------------------|
-| ![Home Page](demo/home_page.PNG)|
+| ![Home Page](demo/demo_add_delete_lane.PNG)|
 
 ## Functionality
 
