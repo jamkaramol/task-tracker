@@ -3,10 +3,10 @@ import AddButton from "../AddButton";
 import AddUpdateTask from "../AddUpdateTask";
 import TaskList from "../TaskList";
 import './swimLane.scss';
-import { addItem } from '../../app/taskDetailsSlice';
+import { addItem, deleteLane } from '../../app/taskDetailsSlice';
 import { useDispatch } from "react-redux";
 import { SWIM_LANE_TYPES } from "../../app/constants";
-import { MdDragIndicator } from "react-icons/md";
+import { MdDragIndicator, MdOutlineDelete } from "react-icons/md";
 import { HiDotsVertical } from "react-icons/hi";
 
 const SwimLane = (
@@ -43,12 +43,18 @@ const SwimLane = (
         setIsShowAddTask(false);
     }
 
+    const onDeleteLane = (label: string) => {
+        dispatch(deleteLane({ laneName: label }))
+    };
+
     return (
         <div className="swim-lane" data-testid={type}>
             <div className="lane-heading">
                 <MdDragIndicator />
                 {label}
-                <HiDotsVertical />
+                <div data-testid={"delete-lane" + label} onClick={() => onDeleteLane(type)}>
+                    <MdOutlineDelete />
+                </div>
             </div>
             <AddButton onClickHandler={onClickHandler} type={type} />
             {isShowAddTask && <AddUpdateTask label="Add" submitHandler={addTaskHandler} cancelHandler={onCancelHandler} />}

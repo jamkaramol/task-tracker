@@ -10,19 +10,12 @@ import { GoComment } from "react-icons/go";
 import { useEffect, useState } from "react";
 import AddUpdateTask from "../AddUpdateTask";
 
-const TaskDetails = ({ taskDetails, type = "" }: { taskDetails: TaskType, type: string }): JSX.Element => {
+const TaskDetails = ({ taskDetails, type = "", themeClass = "" }: { taskDetails: TaskType, type: string, themeClass: string }): JSX.Element => {
     const [isEdit, setIsEdit] = useState(false);
 
     const { details, comments = [], likes = 0, id } = taskDetails;
     const dispatch = useDispatch();
-    let containerClasses = "task-details "
-    if (type === SWIM_LANE_TYPES.WENT_WELL) {
-        containerClasses += "went-well-background";
-    } else if (type === SWIM_LANE_TYPES.TO_IMPROVE) {
-        containerClasses += "to-improve-background";
-    } else if (type === SWIM_LANE_TYPES.ACTION_ITEMS) {
-        containerClasses += "action-items-background";
-    };
+    let containerClasses = "task-details " + themeClass;
 
     const onLikeItemHandler = () => {
         dispatch(likeItem({ type: type, id }));
@@ -57,7 +50,7 @@ const TaskDetails = ({ taskDetails, type = "" }: { taskDetails: TaskType, type: 
                     <GoComment />
                     <div className="comment-count">{comments.length} </div>
                 </div>
-                <div className="action-like" data-testid={"like"+ id} onClick={onLikeItemHandler}>
+                <div className="action-like" data-testid={"like" + id} onClick={onLikeItemHandler}>
                     <AiOutlineLike />
                     <div data-testid={"like-count" + id} className="like-count">{likes}</div>
                 </div>

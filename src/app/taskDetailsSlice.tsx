@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SWIM_LANE_TYPES } from './constants';
+import { SWIM_LANE_TYPES, DEFAULT_LANES } from './constants';
 
 export interface TaskType {
     id: number,
@@ -25,13 +25,22 @@ const getIndexById = (taskList: TaskType[], id: number) => {
     return taskList.findIndex((item: TaskType) => item.id === id);
 };
 
+function createInitialState() {
+    let allLanes: any = getLocalStorageOnLoad("all_lanes");
+    if (!allLanes.length) {
+        localStorage.setItem("all_lanes", JSON.stringify(DEFAULT_LANES));
+        allLanes = DEFAULT_LANES;
+    }
+    let map: any = {};
+    allLanes.forEach((lane: string) => {
+        map[lane] = getLocalStorageOnLoad(lane);
+    });
+    return map;
+};
+
 export const taskDetailsSlice = createSlice({
     name: 'tasksDetails',
-    initialState: {
-        [SWIM_LANE_TYPES.WENT_WELL]: getLocalStorageOnLoad(SWIM_LANE_TYPES.WENT_WELL),
-        [SWIM_LANE_TYPES.TO_IMPROVE]: getLocalStorageOnLoad(SWIM_LANE_TYPES.TO_IMPROVE),
-        [SWIM_LANE_TYPES.ACTION_ITEMS]: getLocalStorageOnLoad(SWIM_LANE_TYPES.ACTION_ITEMS)
-    },
+    initialState: createInitialState(),
     reducers: {
         addItem: (state: any, action) => {
             const { payload, type }: { payload: TaskType, type: any } = action.payload;
@@ -58,12 +67,29 @@ export const taskDetailsSlice = createSlice({
             const index = getIndexById(data, id);
             state[type][index].details = details;
             saveToLocalStorage(type, JSON.stringify(state[type]));
+        },
+        addNewLane: (state: any, action) => {
+            const { laneName } = action.payload;
+            const all_lanes = getLocalStorageOnLoad("all_lanes");
+            all_lanes.push(laneName);
+            localStorage.setItem("all_lanes", JSON.stringify(all_lanes));
+            state[laneName] = [];
+        },
+        deleteLane: (state: any, action) => {
+            const { laneName } = action.payload;
+            console.log(laneName);
+            const all_lanes = getLocalStorageOnLoad("all_lanes");
+            const index = all_lanes.findIndex((name: string) => laneName === name);
+            all_lanes.splice(index, 1);
+            localStorage.setItem("all_lanes", JSON.stringify(all_lanes));
+            localStorage.removeItem(laneName);
+            delete state[laneName];
         }
     },
 })
 
 export const getAllTasks = (state: any) => state.taskDetails;
 
-export const { addItem, likeItem, updateItemDetails, deleteItem} = taskDetailsSlice.actions
+export const { addItem, likeItem, updateItemDetails, deleteItem, addNewLane, deleteLane } = taskDetailsSlice.actions
 
 export default taskDetailsSlice.reducer;

@@ -1,8 +1,13 @@
 @import "./styles/colors";
 
 .container {
-  padding-left: 0;
   display: flex;
+  flex-flow: column;
+}
+
+.lanes {
+  display: flex;
+  padding-left: 0;
   justify-content: flex-start;
   white-space: nowrap;
   overflow-x: auto;

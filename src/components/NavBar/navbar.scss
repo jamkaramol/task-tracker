@@ -1,0 +1,9 @@
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    background: lightgrey;
+    .heading {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
